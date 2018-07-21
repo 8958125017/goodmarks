@@ -1,0 +1,42 @@
+<div class="container-fluid">
+     <div class="header">
+        <a class="ti ti-plus pull-right plus-add" (click)="gotoAddHelpOffer()"></a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">S.No</th>
+                                <th>Author</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="helpOffersList?.count !== 0">
+                            <tr *ngFor="let helpoffer of helpOffersList?.result; let i = index">
+                                <td class="col-md-1">{{i+indexValue}}.</td>
+                                <td class="overflow-table-text">{{helpoffer?.first_name || '-'}} {{helpoffer?.last_name}}</td>
+                                <td class="overflow-table-text">{{helpoffer?.title || '-'}}</td>
+                                <td class="overflow-table-text">{{helpoffer?.desc || '-'}}</td>
+                                <th>
+                                    <a class="ti ti-pencil" (click)="gotoEditHelpOfferByID(helpoffer?.id)"></a>
+                                   <!--  <b>/</b>
+                                    <a class="ti ti-pencil" (click)="gotoEditHelpOfferByID(helpoffer?.id)"></a> -->
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="loader_gif" *ngIf="loader">
+                        <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+                    </div>
+                    <div *ngIf="!isDataFound && !loader" class="dataCenter">Data Not Found</div>
+                </div>
+            </div>
+
+   <p-paginator class="text-center" rows="10" totalRecords="{{helpOffersList?.count}}" (onPageChange)="paginate($event)" *ngIf="isDataFound && helpOffersList?.count >10"></p-paginator>
+</div>
+<!-- <img [src]="global_service.basePathLoader" *ngIf="loader" class="loader_gif"> -->

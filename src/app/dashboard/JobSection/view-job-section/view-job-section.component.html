@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="header">
+        <a class="ti ti-plus pull-right plus-add" (click)="gotoAddJobSection()"></a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">S.No</th>
+                                <!-- <th>Assigned By</th> -->
+                                <th>Title</th>
+                                <th>Deadline</th>
+                                <!-- <th>Skill Needed</th> -->
+                                <th>Level of Difficulty</th>
+                                <th>Job Description</th>
+                                <!-- <th>Assigned To</th> -->
+                                <!-- <th>Attachments</th> -->
+                                <!-- <th>Actions</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let job of jobListData?.result; let i = index">
+                                <td class="col-md-1">{{i+indexValue}}.</td>
+                                <!-- <td>{{job?.job_assigned_by?.first_name || ""}} {{job?.job_assigned_by?.last_name || ""}}</td> -->
+                                <td class="overflow-table-text">{{job?.title || "-"}}</td>
+                                <td class="overflow-table-text">{{job?.need_by || "-"}}</td>
+<!--                                 <td class="overflow-table-text">
+                                    <ul  *ngFor="let skills of job?.gkarm_job_skills; let j = index">
+                                        <li>{{skills?.gkarm_skill?.name || ""}}</li>
+                                    </ul>
+                                </td> -->
+                                <td class="overflow-table-text">{{job?.difficultyLevel || "-"}}</td>
+                                <td class="overflow-table-text">{{job?.desc || "-"}}</td>
+                                <!-- <td>{{job?.assigned_to || ""}}</td> -->
+                               <!--  <td>
+                                    <ul  *ngFor="let images of job?.gkarm_job_images; let j = index">
+                                        <li><img [src]="images?.image_name" width="10%" height="10%"></li>
+                                    </ul>
+                                </td> -->
+                                <td>
+                                    <!-- <a class="ti ti-pencil" (click)="gotoEditJob(job?.id)"></a> -->
+                                    <!-- <b>/</b>
+                                    <a class="ti ti-trash" (click)="deleteUserById(user?.id)"></a> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="loader_gif" *ngIf="loader">
+                        <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+                    </div>
+                    <div *ngIf="!isDataFound && !loader" class="dataCenter">Data Not Found</div>
+                </div>
+            </div>
+
+   <p-paginator class="text-center" rows="10" totalRecords="{{jobListData?.count}}" (onPageChange)="paginate($event)" *ngIf="isDataFound && jobListData?.count >10"></p-paginator>
+</div>
+<!-- <img [src]="global_service.basePathLoader" *ngIf="loader" class="loader_gif"> -->

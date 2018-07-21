@@ -1,0 +1,197 @@
+<div class="loader_gif" *ngIf="disableMultipleSave">
+  <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+</div>
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+    <div class="header">
+      <h4 class="title">Add Help Request</h4>
+    </div>
+    <div class="content">
+      <form [formGroup]="addhelpRequestForm">
+        <div *ngIf="!addhelpRequestForm.valid && validateFields" class="alert alert-danger">
+            Please fill all fields highlighted in Red
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Author *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <!--  <input class="form-control border-input" formControlName="author_id" value="{{helpReqData?.first_name}} {{helpReqData?.last_name}}"> -->
+              <select class="form-control border-input" formControlName="author_id" value="{{helpReqData?.author_id}}" [ngClass]="{'red-border-class': !addhelpRequestForm.controls.author_id.valid && validateFields}">
+                <option label="Please Select Author" value="" [selected]="true">Please Select Author</option>
+                <option *ngFor='let admin of authorDataArray' value="{{admin?.id}}">
+                  {{admin?.first_name}} {{admin?.last_name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Title *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input class="form-control border-input" id="title" formControlName="title" 
+              placeholder="Enter the Title" 
+              [ngClass]="{'red-border-class': !addhelpRequestForm.controls.title.valid && validateFields}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Help Type *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <select class="form-control border-input" formControlName="help_type"
+              [ngClass]="{'red-border-class': !addhelpRequestForm.controls.help_type.valid && validateFields}">
+                <option label="Please Select" value="" [selected]="">Please Select Help Type</option>
+                <option *ngFor="let help of helpTypes" value="{{help.id}}">
+                  {{help.help}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+                    <div class="col-md-3">
+                        <label>Difficulty *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control border-input" formControlName="difficulty" 
+                            [ngClass]="{'red-border-class': !addhelpRequestForm.controls.difficulty.valid && validateFields}">
+                                <option value="" label="Please Select" [selected]="true">Please Select</option>
+                                <option value="1" label="Very Easy">Very Easy
+                                </option>
+                                <option value="2" label="Easy">Easy
+                                </option>
+                                <option value="3" label="Average">Average
+                                </option>
+                                <option value="4" label="Hard">Hard
+                                </option>
+                                <option value="5" label="Very Hard">Very Hard
+                                </option>
+                            </select>
+                            <div [hidden]="addhelpRequestForm.controls.difficulty.valid || addhelpRequestForm.controls.difficulty.pristine"
+                            class="text-danger">
+                            Required.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Skills *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <p-multiSelect [options]="customSkillArray" formControlName="skills" 
+              [(ngModel)]="selectedSkill" maxSelectedLabels="1" class="full-width">{{selectedSkill}}</p-multiSelect>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Distance in Miles *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input class="form-control border-input" id="distance" formControlName="distance"
+              placeholder="Enter the Distance"  [ngClass]="{'red-border-class': !addhelpRequestForm.controls.distance.valid && validateFields}">
+            </div>
+            <div [hidden]="addhelpRequestForm.controls.distance.valid || addhelpRequestForm.controls.distance.pristine"
+            class="text-danger">
+            Number Only
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Zip Code *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input class="form-control border-input" id="zipCode" formControlName="zip_code" placeholder="Enter the Zip" [ngClass]="{'red-border-class': !addhelpRequestForm.controls.zip_code.valid && validateFields}" maxlength="10">
+            </div>
+            <div [hidden]="addhelpRequestForm.controls.zip_code.valid || addhelpRequestForm.controls.zip_code.pristine"
+            class="text-danger">
+            Number Only
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Description *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input rows="5" class="form-control border-input" formControlName="desc"  
+              placeholder="Enter the Description" [ngClass]="{'red-border-class': !addhelpRequestForm.controls.desc.valid && validateFields}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Status *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+            <select class="form-control border-input" class="form-control border-input" 
+              id="status" formControlName="status" [ngClass]="{'red-border-class': !addhelpRequestForm.controls.status.valid && validateFields}">
+              <option label="Select Status" [selected]="true">Select Status</option>
+              <option label="Removed" value="0" [selected]="helpOfferData?.status == 0">Removed</option>
+              <option label="Created" value="1" [selected]="helpOfferData?.status == 1">Created</option>
+              <option label="Accepted" value="2" [selected]="helpOfferData?.status == 2">Accepted</option>
+              <option label="Started" value="3" [selected]="helpOfferData?.status == 3">Started</option>
+              <option label="Finished" value="4" [selected]="helpOfferData?.status == 4">finished</option>
+              <option label="Cancelled" value="5" [selected]="helpOfferData?.status == 5">Cancelled</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- <p>{{!addhelpRequestForm.controls.date_completion.valid && validateFields}}</p> -->
+        <div class="row">
+          <div class="col-md-3">
+            <label>Completion *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+            <p-calendar [(ngModel)]="needbydate" (onSelect)="showDate()" readonlyInput="true"
+            [ngModelOptions]="{standalone: true}" [monthNavigator]="true" [yearNavigator]="true" 
+            yearRange="{{lastYear}}:2090" placeholder="Enter the Date"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Latitude</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input class="form-control border-input" id="Latitude" formControlName="latitude" 
+              placeholder="Enter the Latitude">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Longitude</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input class="form-control border-input" id="Longitude" formControlName="longitude" 
+              placeholder="Enter the Longitude">
+            </div>
+          </div>
+        </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-info btn-fill btn-wd" (click)="addHelpRequest()" 
+        [disabled]="disableMultipleSave">Save</button>
+      </div>         
+    </form>
+  </div>
+</div>
+</div>

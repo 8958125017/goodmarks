@@ -1,0 +1,81 @@
+<div class="loader_gif" *ngIf="disableMultipleSave">
+    <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+</div>
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+      <div class="header">
+        <h4 class="title">Add Positivity Requests</h4>
+      </div>
+      <div class="content">
+        <form [formGroup]="addPositivityForm">
+         <div *ngIf="!addPositivityForm.valid && validateForm" class="alert alert-danger">
+          Please fill all fields highlighted in Red
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-md-3">
+              <label>Author *</label>
+            </div>
+            <div class="col-md-9">
+              <select class="form-control border-input" formControlName="author_id" 
+              [ngClass]="{'red-border-class': !addPositivityForm.controls.author_id.valid && validateForm}">
+              <option value="" [selected]="true">
+              Please Select Author *</option>
+              <option *ngFor='let author of AuthorData' [value]="author?.id">
+               {{author?.first_name}} {{author?.last_name}}
+             </option>
+           </select>
+         </div>  
+         <div [hidden]="addPositivityForm.controls.author_id.valid || addPositivityForm.controls.author_id.pristine"
+         class="text-danger">
+         Author is Required
+       </div>
+     </div>
+   </div>
+   <div class="row">
+    <div class="form-group">
+      <div class="col-md-3">
+        <label>Description *</label>
+      </div>
+      <div class="col-md-9">
+        <input class="form-control border-input" formControlName="desc" 
+        placeholder="Enter your description here"[ngClass]="{'red-border-class': !addPositivityForm.controls.desc.valid && validateForm}">
+      </div>  
+      <div [hidden]="addPositivityForm.controls.desc.valid || addPositivityForm.controls.desc.pristine"
+      class="text-danger">
+      Description is Required
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <div class="col-md-3">
+        <label>Status *</label>
+      </div>
+      <div class="col-md-9">
+        <select class="form-control border-input" formControlName="status" [ngClass]="{'red-border-class': !addPositivityForm.controls.status.valid && validateForm}">
+          <option label="Select Status" [selected]="true">Select Status</option>          
+                <option label="Removed" value="0">Removed</option>
+                <option label="Created" value="1">Created</option>
+                <option label="Accepted" value="2">Accepted</option>
+                <option label="Started" value="3">Started</option>
+                <option label="Finished" value="4">Finished</option>
+                <option label="Cancelled" value="5">Cancelled</option>
+        </select>
+      </div>  
+      <div [hidden]="addPositivityForm.controls.status.valid || addPositivityForm.controls.status.pristine"
+      class="text-danger">
+      Status is Required
+    </div>
+  </div>
+  </div>
+
+  <div class="text-center">
+    <button type="submit" class="btn btn-info btn-fill btn-wd" (click)="addPositivityRequest()" [disabled]="disableMultipleSave">Save</button>
+  </div>
+  <div class="clearfix"></div>
+  </form>
+  </div>
+  </div>
+</div>
+

@@ -1,0 +1,144 @@
+<div class="col-lg-12 col-md-12" *ngIf="disableEdit">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Edit Job Section</h4>
+        </div>
+        <div class="content">
+            <form [formGroup]="editjobSectionForm">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Author *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control border-input" formControlName="author_id" value="{{jobSectionData?.job_assigned_by?.id}}">
+                                <option label="Please Select Author" disabled></option>
+                                <option *ngFor='let admin of authorDataArray' value="{{admin?.id}}">
+                                    {{admin?.first_name}} {{admin?.last_name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Title *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input class="form-control border-input" id="title" formControlName="title" value="{{jobSectionData?.title}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Difficulty *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                         <select class="form-control border-input" formControlName="difficulty" 
+                         value="{{jobSectionData?.difficulty}}">
+                         <option label="Please Select" selected disabled></option>
+                         <option value="1" label="Very Easy">
+                         </option>
+                         <option value="2" label="Easy">
+                         </option>
+                         <option value="3" label="Average">
+                         </option>
+                         <option value="4" label="Hard">
+                         </option>
+                         <option value="5" label="Very Hard">
+                         </option>
+                     </select>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+            <div class="col-md-3">
+                <label>Skills *</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <p-multiSelect [options]="customSkillArray" formControlName="skills" [(ngModel)]="selectedSkill" class="full-width"></p-multiSelect>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label> Need By *</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <p-calendar class="full-width" formControlName="need_by" [(ngModel)]="need_by" [style]="{'width':'100%'}" dateFormat="yy-mm-dd"></p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Help Type *</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <select class="form-control border-input" formControlName="help_type" value="{{jobSectionData?.help_type}}">
+                        <option label="Please Select" selected disabled></option>
+                        <option value="1" label="Physical Help">
+                        </option>
+                        <option value="2" label="Virtual Help">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Description *</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <input rows="5" class="form-control border-input" formControlName="desc" value="{{jobSectionData?.desc}}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Status *</label>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <select class="form-control border-input" class="form-control border-input" id="job_status" formControlName="job_status">
+                        <option label="Select Status" [selected]="true" disabled>Select Status</option>
+                        <option label="In Progress" value="0" [selected]="jobSectionData?.job_status == 0">
+                        </option>
+                        <option label="Complete" value="1" [selected]="jobSectionData?.job_status == 1">
+                        </option>
+                        <option label="Incomplete" value="2" [selected]="jobSectionData?.job_status == 2">
+                        </option>
+                        <option label="Cancel" value="3" [selected]="jobSectionData?.job_status == 3">
+                        </option>
+                        <option label="Job Created" value="4" [selected]="jobSectionData?.job_status == 4">
+                        </option>
+                        <!-- <option label="Cancelled" value="5" [selected]="jobSectionData?.job_status == 5"></option> -->
+                    </select>
+                </div>
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Attachments *</label>
+                </div>
+                <div class="col-md-9">
+                    <div *ngFor="let image of jobSectionData?.gkarm_job_images">
+                        <a>
+                           <img [src]="image.image_name" width="10%">
+                       </a>
+                   </div>
+               </div>
+           </div>
+           <div class="text-center">
+            <!-- <button type="submit" class="btn btn-info btn-fill btn-wd" (click)="addHelpRequest()">Save</button> -->
+        </div>
+</form>
+</div>
+</div>
+</div>
+

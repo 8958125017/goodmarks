@@ -1,0 +1,11 @@
+input.ng-invalid.ng-touched {
+  border: 1px solid grey !important;
+}
+
+.red-border-class{
+  border-color:  red !important;
+}
+
+.overflow-table-text{
+
+}

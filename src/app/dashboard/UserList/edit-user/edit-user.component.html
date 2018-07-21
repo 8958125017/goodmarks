@@ -1,0 +1,376 @@
+<div class="loader_gif" *ngIf="disableMultipleSave">
+    <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+</div>
+<div class="col-lg-12 col-md-12" *ngIf="disableEdit">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Edit User</h4>
+        </div>
+        <div class="content">
+
+            <form [formGroup]="editUserForm">
+                <div *ngIf="!editUserForm.valid && validateFields" class="alert alert-danger">
+                    Please fill all fields highlighted in Red
+                </div>
+                <input type="hidden" formControlName="old_image">
+                <input type="hidden" formControlName="new_image">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">     
+                            <div class="mhi_prf_image">
+                            <img [src]="imgSrc" id="blah" class="text-center" width="100%" height="100%">    
+                                <div>
+                                    <a (click)="editImage()" style="height:100%;width: 100%;">
+                                        <img src="assets/images/cam_small.png" alt="">
+                                        Edit
+                                    </a>
+                                    <div  class="file-browse-safari">
+                                        <input type="file" class="imageUrl" ng2FileSelect 
+                                        [uploader]="uploader" 
+                                         id="imageUrl" name="imageUrl" 
+                                        (change)="handleInputChange($event)"
+                                        accept="image/*">
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>First Name *</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="first_name" value="{{UserListData?.first_name}}"
+                            [ngClass]="{'red-border-class': !editUserForm.controls.first_name.valid && validateFields}">
+                        <div [hidden]="editUserForm.controls.first_name.valid || editUserForm.controls.first_name.pristine"
+                            class="text-danger">
+                            First Name is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Last Name *</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="last_name" value="{{UserListData?.last_name}}"
+                            [ngClass]="{'red-border-class': !editUserForm.controls.last_name.valid && validateFields}">
+                        <div [hidden]="editUserForm.controls.last_name.valid || editUserForm.controls.last_name.pristine"
+                            class="text-danger">
+                            Last Name is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Description *</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="desc" value="{{UserListData?.description}}"
+                             [ngClass]="{'red-border-class': !editUserForm.controls.desc.valid && validateFields}">
+                        <div [hidden]="editUserForm.controls.desc.valid || editUserForm.controls.desc.pristine"
+                            class="text-danger">
+                            Description is Required*
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Email Address *</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="email" value="{{UserListData?.email}}" email
+                             [ngClass]="{'red-border-class': !editUserForm.controls.email.valid && validateFields}">
+                        <div [hidden]="editUserForm.controls.email.valid || editUserForm.controls.email.pristine"
+                            class="text-danger">
+                            Email should be in format good@karm.com
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                     <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Zip *</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="zip" value="{{UserListData?._zip=='null' ? '' :UserListData?._zip}}" maxlength="10" 
+                            [ngClass]="{'red-border-class': !editUserForm.controls.zip.valid && validateFields}">
+                        <div [hidden]="editUserForm.controls.zip.valid || editUserForm.controls.zip.pristine"
+                            class="text-danger">
+                            Enter Valid Zip Number
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Password *:</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="password" minlength="6" class="form-control border-input"  formControlName="password" value="{{UserListData?.password}}"
+                            [ngClass]="{'red-border-class': !editUserForm.controls.password.valid && validateFields}">
+                        <div [hidden]="editUserForm.controls.password.valid || editUserForm.controls.email.pristine"
+                            class="text-danger">
+                            Required*
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div> -->
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Birthdate </label>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-7">
+                            <p-calendar class="full-width" [ngModelOptions]="{standalone: true}" 
+                            [(ngModel)]="needbydate" [maxDate]="maxDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="{{lastYear}}:{{currentYear}}" (onSelect)="showDate()">
+                            </p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Phone Number: *</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="number" class="form-control border-input" formControlName="phone_number" value="{{UserListData?.phone_number}}"
+                             [ngClass]="{'red-border-class': !editUserForm.controls.phone_number.valid && validateFields}">
+                        <div [hidden]="editUserForm.controls.phone_number.valid || editUserForm.controls.phone_number.pristine"
+                            class="text-danger">
+                            Required*
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Phone Number *</label>
+                        </div>
+                        <div class="col-md-9">
+
+                            <div class="row">
+                            <!-- <div class=" col-md-2">
+                              <select class="form-control border-input" formControlName="textValid" [(ngModel)]="countrycode" [ngClass]="{'red-border-class': !editUserForm.controls.textValid.valid && loader}">
+                                <option label="Select" [selected]="true" value="-1"></option>
+                                <option *ngFor='let code of countryCode' value="{{code?.code}}">
+                                  {{code?.name}}
+                                </option>
+                              </select>
+                              <div [hidden]="editUserForm.controls.textValid.valid || editUserForm.controls.textValid.pristine"
+                              class="text-danger">
+                              </div>
+                            </div> -->
+
+                            <div class="col-md-12">
+                       
+                            <input type="text" class="form-control border-input" formControlName="phone_number" maxlength="16" value="{{UserListData?.phone_number}}"
+                            [ngClass]="{'red-border-class': !editUserForm.controls.phone_number.valid && validateFields}">
+                        <div [hidden]="editUserForm.controls.phone_number.valid || editUserForm.controls.phone_number.pristine"
+                            class="text-danger">
+                            Please Enter Valid Phone Number
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Question</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="question" value="{{UserListData?.question}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>College</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="college" value="{{UserListData?.college}}">
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Code:</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="code" value="{{UserListData?.code}}">
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Message Counter:</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="message_counter" value="{{UserListData?.message_counter}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Notification Counter:</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="notification_counter" value="{{UserListData?.notification_counter}}">
+                        </div>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Distance in Miles User want to travel</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control border-input" formControlName="distance" value="{{UserListData?.distance}}"
+                                [ngClass]="{'red-border-class': !editUserForm.controls.distance.valid && validateFields}">
+                        <div [hidden]="editUserForm.controls.distance.valid || editUserForm.controls.distance.pristine"
+                            class="text-danger">
+                            Please Enter Valid Distance
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Latitude</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="latitude" value="{{UserListData?.latitude}}">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Longitude</label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control border-input" formControlName="longitude" value="{{UserListData?.longitude}}">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Difficulty</label>
+                        </div>
+                        <div class="col-md-9">
+                           <!--  <input type="text" class="form-control border-input" formControlName="difficulty" value="{{UserListData?.difficulty}}"> -->
+                           <select class="form-control border-input" [(ngModel)]="difficulty" formControlName="difficulty" value="{{UserListData?.difficulty}}">
+                                <option label="Select Difficulty" [selected]="true">Select Difficulty</option>
+                                <option value="1" label="Very Easy">Very Easy
+                                </option>
+                                <option value="2" label="Easy">Easy
+                                </option>
+                                <option value="3" label="Average">Average
+                                </option>
+                                <option value="4" label="Hard">Hard
+                                </option>
+                                <option value="5" label="Very Hard">Very Hard
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Gratitude Privacy</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control border-input" formControlName="gratitude_privacy">
+                                <option label="Please Select">Please Select</option>
+                                <option value="1" [selected]="UserListData?.gratitude_privacy == 1">Only me
+                                </option>
+                                <option value="2" [selected]="UserListData?.gratitude_privacy == 2">Following</option>
+                                <option value="3" [selected]="UserListData?.gratitude_privacy == 3">Followers</option>
+                                <option value="4" [selected]="UserListData?.gratitude_privacy == 4">Everyone</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Number</label>
+                        </div>
+                        <div class="col-md-9">
+                            <select class="form-control border-input" [ngModel]="number" formControlName="number" value="{{UserListData?.number}}"> 
+                             <option label="Select Number" [selected]="true">Select Number</option>
+                                        <option value="{{num.value}}" *ngFor="let num of daysArray">{{num.key}}</option>
+                                       
+                        </select>
+
+                            <!-- <input type="text" class="form-control border-input" formControlName="number" value="{{UserListData?.number}}">  -->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Interval</label>
+                        </div>
+                        <div class="col-md-9">
+                            <!-- <input type="text" class="form-control border-input" formControlName="interval" value="{{UserListData?.interval}}"> -->
+                            <select class="form-control border-input" [ngModel]="interval" formControlName="interval" value="{{UserListData?.interval}}"> 
+                             <option label="Select Interval" [selected]="true">Select Interval</option>
+                                        <option value="1">Days</option>
+                                        <option value="2">Weeks</option>
+                                        <option value="3">Months</option>
+                                        <option value="4">Years</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row" *ngFor="let notification of notificationArray; let i=index">
+                        <div class="col-md-3" >
+                            <label><p>{{notification?.key}}</p></label>
+                            
+                        </div>
+                        <div class="col-md-9">
+                            <input type="checkbox" class="border-input" 
+                            formControlName="status"
+                            [checked]="notification?.checked">
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-fill btn-wd" 
+                    (click)="updateUser(UserListData?.id)" [disabled]="disableMultipleSave">Update</button>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>

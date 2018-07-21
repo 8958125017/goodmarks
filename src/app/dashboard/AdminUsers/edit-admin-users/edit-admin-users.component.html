@@ -1,0 +1,93 @@
+<div class="col-lg-12 col-md-12"  *ngIf="disableEdit">
+	<div class="card">
+		<div class="header">
+			<h4 class="title">Edit Admin User</h4>
+		</div>
+		<div class="content">
+			<form [formGroup]="editadminUsersForm" *ngIf="disableEdit">
+				<div *ngIf="!editadminUsersForm.valid && loader" class="alert alert-danger">
+			   		Please fill all fields highlighted in Red
+			    </div>
+				<div class="row">
+					<div class="col-md-3">
+						<label>First Name</label>
+					</div>
+					<div class="col-md-9">
+						<div class="form-group">
+							<input class="form-control border-input" formControlName="first_name" value="{{adminUserData?.first_name}}" placeholder="Enter the First Name">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label>Last Name</label>
+					</div>
+					<div class="col-md-9">
+						<div class="form-group">
+							<input class="form-control border-input" formControlName="last_name" value="{{adminUserData?.last_name}}" placeholder="Enter the Last Name">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label>Email *</label>
+					</div>
+					<div class="col-md-9">
+						<div class="form-group">
+							<input class="form-control border-input" formControlName="email" value="{{adminUserData?.email}}" email placeholder="Enter the Email"
+							[ngClass]="{'red-border-class': !editadminUsersForm.controls.email.valid && loader}">
+						<div [hidden]="editadminUsersForm.controls.email.valid || editadminUsersForm.controls.email.pristine"
+						class="text-danger">
+						Email should be in format good@karm.com
+						</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label>User Name *</label>
+					</div>
+					<div class="col-md-9">
+						<div class="form-group">
+							<input rows="5" class="form-control border-input" formControlName="username" value="{{adminUserData?.username}}" placeholder="Enter the User Name"
+							[ngClass]="{'red-border-class': !editadminUsersForm.controls.username.valid && loader}">
+						<div [hidden]="editadminUsersForm.controls.username.valid || editadminUsersForm.controls.username.pristine"
+						class="text-danger">
+						User Name is Required .
+						</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<label>Is Active *</label>
+					</div>
+					<div class="col-md-9">
+						<div class="form-group">
+							<select class="form-control border-input" formControlName="is_active" value="{{adminUserData?.is_active}}" [ngClass]="{'red-border-class': !editadminUsersForm.controls.is_active.valid && loader}"> 
+								<option label="Please Select *" [selected]="true">Please Select *</option>
+								<!-- <option *ngFor='let status of global_service.adminStatus' 
+								value="{{status?.id}}">
+									{{status.status}}
+							    </option> -->		
+								<option value="1" label="Active" [selected]="adminUserData?.is_active === 1">Active
+								</option>
+								<option value="0" label="Inactive" [selected]="adminUserData?.is_active === 0">Inactive
+								</option>
+							</select>
+							<div [hidden]="editadminUsersForm.controls.is_active.valid || editadminUsersForm.controls.is_active.pristine"
+							class="text-danger">
+							Status is Required .
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="text-center">
+					<button type="submit" class="btn btn-info btn-fill btn-wd" 
+					(click)="updateAdminUser()" [disabled]="saveClicked">Update</button>
+				</div>
+				<div class="clearfix"></div>	
+			</form>
+		</div>
+	</div>
+</div>

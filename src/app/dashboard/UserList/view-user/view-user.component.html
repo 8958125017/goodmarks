@@ -1,0 +1,90 @@
+<div class="container-fluid">
+    <div class="header">
+        <a class="ti ti-plus pull-right plus-add" (click)="gotoAddUser()"></a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">S.No</th>
+                                <th>Author</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of usersList?.result; let i = index">
+                                <td class="col-md-1">{{i+indexValue}}.</td>
+                                <td class="col-md-3 overflow-table-text">{{user.first_name || "-"}} {{user.last_name}}</td>
+                                <td class="col-md-6 overflow-table-text">{{user.email || "-"}}</td>
+                                <td class="col-md-2">
+                                    <a class="ti ti-pencil" (click)="gotoEditUser(user?.id)"></a>
+                                    <b>/</b>
+                                    <a class="ti ti-key" (click)="resetPassword(user?.id)"></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="loader_gif" *ngIf="loader">
+                        <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+                    </div>
+                    <div *ngIf="!isDataFound && !loader" class="dataCenter">Data Not Found</div>
+                </div>
+            </div>
+
+   <p-paginator class="text-center" rows="10" totalRecords="{{usersList?.count}}" (onPageChange)="paginate($event)" *ngIf="isDataFound && usersList?.count >10"></p-paginator>
+</div>
+<!-- <img [src]="global_service.basePathLoader" *ngIf="loader" class="loader_gif"> -->
+
+
+<!-- Reset Password -->
+<p-dialog header="Reset Password" width="500" [(visible)]="display" [responsive]="true" [closable]="false" 
+[modal]="display" [appendTo]="body">  
+<p-header><a class="pull-right" (click)='closePopUp()'><i class="fa fa-close"></i></a></p-header> 
+<div class="loader_gif" *ngIf="disableMultipleSave">
+    <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+</div> 
+    <form [formGroup]="resetPasswordForm">
+         <div *ngIf="!resetPasswordForm.valid && validateFields" class="alert alert-danger">
+                    Please fill all fields highlighted in Red
+         </div>
+        <div class="form-group"> 
+            <input class="form-control" type="password" placeholder="Old Password *" formControlName="oldPassword" minlength="6" [ngClass]="{'red-border-class': !resetPasswordForm.controls.oldPassword.valid && validateFields}">
+            <div [hidden]="resetPasswordForm.controls.oldPassword.valid || resetPasswordForm.controls.oldPassword.pristine"
+            class="text-danger">Password should be minimum 6 characters long</div> 
+        </div>  
+       <!--  <input type="password" class="form-control" name="password" [ngModel]="user.password" 
+        required validateEqual="confirmPassword" reverse="true" #password="ngModel">
+      <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">
+        Password is required
+      </small>
+      <pre *ngIf="password.errors" class="margin-20">{{ password.errors | json }}</pre>
+    </div>
+    <div class="form-group">
+      <label for="">Retype password</label>
+      <input type="password" class="form-control" name="confirmPassword" [ngModel]="user.confirmPassword" 
+        required validateEqual="password" reverse="false" #confirmPassword="ngModel">
+      <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)" class="text-danger">
+        Password mismatch
+      </small> -->
+        <div class="form-group"> 
+            <input class="form-control" type="password" name="newPassword" placeholder="New Password *" formControlName="newPassword" 
+            minlength="6"  validateEqual="confirmPassword" reverse="true" 
+            [ngClass]="{'red-border-class': !resetPasswordForm.controls.newPassword.valid && validateFields}"> <div [hidden]="resetPasswordForm.controls.newPassword.valid || resetPasswordForm.controls.newPassword.pristine"
+            class="text-danger">Password should be minimum 6 characters long</div>
+        </div>
+        <div class="form-group"> 
+            <input class="form-control" type="password" placeholder="Confirm password *" name="confirmPassword" reverse="false"
+            validateEqual="newPassword" formControlName="confirmPassword" minlength="6" [ngClass]="{'red-border-class': !resetPasswordForm.controls.confirmPassword.valid && validateFields}"> 
+            <div [hidden]="resetPasswordForm.controls.confirmPassword.valid || resetPasswordForm.controls.confirmPassword.pristine"
+            class="text-danger">Password Mismatch</div>
+        </div>
+        <div class="btn_sav_btn">
+            <button class="btn btn-primary" (click)='resetPasswordOfUser()' 
+            [disabled]="disableMultipleSave">Reset</button>
+        </div>
+    </form>
+</p-dialog>

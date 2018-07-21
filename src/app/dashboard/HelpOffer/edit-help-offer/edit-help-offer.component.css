@@ -1,0 +1,16 @@
+ui-inputtext {
+
+    width: 400px !important;
+   
+    /*display: none;*/
+}
+
+.ui-state-highlight {
+    /*border-color: #156090;*/
+    background-color: #fff !important;
+    color: #FFFFFF;
+}
+
+.ui-chkbox-box.ui-state-active, .ui-radiobutton-box.ui-state-active{
+	background-color:white !important;
+}

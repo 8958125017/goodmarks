@@ -1,0 +1,174 @@
+<div class="col-lg-12 col-md-12" *ngIf="disableEdit">
+  <div class="card">
+    <div class="content">
+      <div class="header">
+        <h4 class="title">Edit Help Offer</h4>  
+      </div>
+      <form [formGroup]="edithelpOfferForm">
+        <div *ngIf="!edithelpOfferForm.valid && validateFields" class="alert alert-danger">
+            Please fill all fields highlighted in Red
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Author *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+               <!--  <input class="form-control border-input" formControlName="author_id" 
+                 value="{{helpOfferData?.first_name}} {{helpOfferData?.last_name}}" disabled> -->
+                 <select class="form-control border-input" formControlName="author_id" value="{{helpOfferData?.author_id}}"
+                 [ngClass]="{'red-border-class' : !edithelpOfferForm.controls.author_id.valid && validateFields}">
+                  <option label="Please Select Author"></option>
+                  <option *ngFor='let admin of authorDataArray' value="{{admin?.id}}">
+                    {{admin?.first_name || '-'}} {{admin?.last_name || '-'}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <label>Title *</label>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+                <input class="form-control border-input" formControlName="title" value="{{helpOfferData?.title}}"  [ngClass]="{'red-border-class' : !edithelpOfferForm.controls.title.valid && validateFields}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <label>Description *</label>
+            </div>
+            <div class="col-md-9">
+              <div class="form-group">
+               <input rows="5" class="form-control border-input" formControlName="desc" value="{{helpOfferData?.desc}}" [ngClass]="{'red-border-class' : !edithelpOfferForm.controls.desc.valid && validateFields}">
+             </div>
+           </div>
+         </div>
+         <div class="row">
+          <div class="col-md-3">
+            <label>Help Type *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <select class="form-control border-input" formControlName="help_type" value="{{helpOfferData?.help_type}}" [ngClass]="{'red-border-class' : !edithelpOfferForm.controls.help_type.valid && validateFields}">
+                <option label="Please Select"></option>
+                <option *ngFor="let help of helpTypes" value="{{help.id}}">
+                  {{help.help}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Skills *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <p-multiSelect [options]="customSkillArray" formControlName="skills"
+              class="full-width" ></p-multiSelect>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Zip Code *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input class="form-control border-input" id="zipCode" formControlName="zip_code" value="{{helpOfferData?.zip_code}}" maxlength="10" [ngClass]="{'red-border-class' : !edithelpOfferForm.controls.zip_code.valid && validateFields}">
+            </div>
+            <div [hidden]="edithelpOfferForm.controls.zip_code.valid || edithelpOfferForm.controls.zip_code.pristine"
+            class="text-danger">
+            Number Only
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Distance in Miles *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input type="number" min="0" class="form-control border-input" id="distance" formControlName="distance" value="{{helpOfferData?.distance}}" 
+              [ngClass]="{'red-border-class' : !edithelpOfferForm.controls.distance.valid && validateFields}">
+            </div>
+            <div [hidden]="edithelpOfferForm.controls.distance.valid || edithelpOfferForm.controls.distance.pristine"
+            class="text-danger">
+            Number Only
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Status *</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <select class="form-control border-input" class="form-control border-input" formControlName="status" value="{{helpOfferData?.status}}" 
+              [ngClass]="{'red-border-class' : !edithelpOfferForm.controls.status.valid && validateFields}">  <option label="Select Status" [selected]="true">Select Status</option>          
+                <option label="Removed" value="0">Removed</option>
+                <option label="Created" value="1">Created</option>
+                <option label="Accepted" value="2">Accepted</option>
+                <option label="Started" value="3">Started</option>
+                <option label="Finished" value="4">Finished</option>
+                <option label="Cancelled" value="5">Cancelled</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Latitude</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input class="form-control border-input" formControlName="latitude" value="{{helpOfferData?.latitude}}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Longitude</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input class="form-control border-input" id="Longitude" formControlName="longitude" value="{{helpOfferData?.longitude}}">
+            </div>
+          </div>
+        </div>
+        <!--  <div class="form-group">
+          <div class="row">
+            <div class="col-md-3">
+              <label>Date Completion *</label>
+            </div>
+            <div class="col-md-9 col-xs-12 col-sm-7">
+              <div class="full-width">
+                <p-calendar [ngModelOptions]="{standalone: true}"
+                  [(ngModel)]="needbydate"
+                  (onSelect)="showDate()">
+                </p-calendar> 
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <label>Other</label>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <input class="form-control border-input" id="other" formControlName="other" value="{{helpOfferData?.other}}">
+            </div>
+          </div>
+        </div> -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-info btn-fill btn-wd" (click)="updateHelpOffer()">Update</button>
+        </div>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,185 @@
+<div class="loader_gif" *ngIf="disableMultipleSave">
+    <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+</div>
+<div class="col-lg-12 col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Add Job Section</h4>
+        </div>
+        <div class="content">
+            <form [formGroup]="addjobSectionForm" enctype="multipart/form-data">
+                <div *ngIf="!addjobSectionForm.valid && validateFields" class="alert alert-danger">
+                    Please fill all fields highlighted in Red
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Author *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control border-input" formControlName="author_id"[(ngModel)]="author" (change)="onChange($event.target.value)"  
+                            [ngClass]="{'red-border-class': !addjobSectionForm.controls.author_id.valid && 
+                            validateFields}">
+                                <option label="Please Select Author" value="" [selected]="true">Please Select Author</option>
+                                <option *ngFor='let admin of authorsName' value="{{admin?.id}}">
+                                    {{admin?.first_name}} {{admin?.last_name}}
+                                </option>
+                            </select>
+                            <div [hidden]="addjobSectionForm.controls.author_id.valid || addjobSectionForm.controls.author_id.pristine"
+                            class="text-danger">
+                            Author is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Assigned To *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control border-input" formControlName="assigned_to" [(ngModel)]="AssignTo" 
+                            [ngClass]="{'red-border-class': !addjobSectionForm.controls.assigned_to.valid && validateFields}">
+                                <option label="Please Select Author" value="" [selected]="true">Please Select Author</option>
+                                <option *ngFor='let admin of authorsNameAssignTo' value="{{admin?.id}}">
+                                    {{admin?.first_name}} {{admin?.last_name}}
+                                </option>
+                            </select>
+                            <div [hidden]="addjobSectionForm.controls.assigned_to.valid || addjobSectionForm.controls.assigned_to.pristine"
+                            class="text-danger">
+                            Assigned To is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Title *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input class="form-control border-input" id="title" formControlName="title" placeholder="Enter the title" 
+                            [ngClass]="{'red-border-class': !addjobSectionForm.controls.title.valid && validateFields}">
+                            <div [hidden]="addjobSectionForm.controls.title.valid || addjobSectionForm.controls.title.pristine"
+                            class="text-danger">
+                            Title is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Difficulty *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control border-input" formControlName="difficulty" 
+                            [ngClass]="{'red-border-class': !addjobSectionForm.controls.difficulty.valid && validateFields}">
+                                <option label="Select Difficulty" [selected]="true" value="">Select Difficulty</option>
+                                <option value="1" label="Very Easy">Very Easy
+                                </option>
+                                <option value="2" label="Easy">Easy
+                                </option>
+                                <option value="3" label="Average">Average
+                                </option>
+                                <option value="4" label="Hard">Hard
+                                </option>
+                                <option value="5" label="Very Hard">Very Hard
+                                </option>
+                            </select>
+                            <div [hidden]="addjobSectionForm.controls.difficulty.valid || addjobSectionForm.controls.difficulty.pristine"
+                            class="text-danger">
+                            Difficulty is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Skills *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <p-multiSelect [options]="customSkillArray" formControlName="skills" 
+                            [(ngModel)]="selectedSkill" class="full-width">
+                            </p-multiSelect>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Help Type *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control border-input" formControlName="help_type" 
+                            [ngClass]="{'red-border-class': !addjobSectionForm.controls.help_type.valid && validateFields}">
+                                <option label="Please Select" value="" [selected]="true">Please Select Help Type</option>
+                                <option value="1" label="Physical Help">Physical Help
+                                </option>
+                                <option value="2" label="Virtual Help">Virtual Help
+                                </option>
+                            </select>
+                            <div [hidden]="addjobSectionForm.controls.help_type.valid || addjobSectionForm.controls.help_type.pristine"
+                            class="text-danger">
+                            Help Type is Required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Description *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input rows="5" class="form-control border-input" formControlName="desc" 
+                            placeholder="Enter your Description Here." [ngClass]="{'red-border-class': !addjobSectionForm.controls.desc.valid && validateFields}">
+                            <div [hidden]="addjobSectionForm.controls.desc.valid || addjobSectionForm.controls.desc.pristine"
+                            class="text-danger">
+                            Description is Required
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Need By *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <p-calendar class="full-width" [ngModelOptions]="{standalone: true}" 
+                            placeholder="Select Date"
+                            [(ngModel)]="needbydate" [style]="{'width':'100%'}" (onSelect)="showDate()" [monthNavigator]="true" [yearNavigator]="true" yearRange="{{lastYear}}:2090"
+                            tabindex="0" [minDate]="minDate" dateFormat="yy-mm-dd"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Attachments *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="file" ng2FileSelect [uploader]="uploader" multiple 
+                        (change)="addMultipleImage()" accept="image/x-png,image/gif,image/jpeg" 
+                        [ngClass]="{'red-border-class': !addjobSectionForm.valid && validateFields}">
+                        <br/>
+                        
+                        <div *ngFor="let item of imageUrl" class="file-upload-images-container">
+                            <img [src]="item" class='file-upload-images'>
+                        </div>    
+
+                        <!-- <table>
+                            <tr *ngFor="let item of uploader.queue">
+                                <td><strong>{{ item?.file?.name }}</strong></td>
+                            </tr>
+                        </table> -->
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-fill btn-wd" (click)="addjobSection()" [disabled]="disableMultipleSave">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

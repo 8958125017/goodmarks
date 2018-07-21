@@ -1,0 +1,249 @@
+<!-- <img [src]="global_service.basePathLoader" *ngIf="loader" class="loader"> -->
+<div class="col-lg-12 col-md-12">
+    <div class="card">
+        <div class="header">
+            <!-- <h3>Add Company</h3> -->
+            <!-- <div class="container">
+                  <h3>Company</h3>
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a (click)="clickAddCompany()">Add Company</a></li>
+                    <li><a (click)="clickAddEmployee()">Add Employees</a></li>
+                  </ul>
+                  <br>
+            </div> -->
+        <p>Add employee will enable after adding company</p>
+        </div>
+        <p-tabView (onChange)="onTabChange($event)">
+        <p-tabPanel header="Add Company" leftIcon="fa-building">
+        <div class="content" *ngIf="isAddCompanyClick">
+            <form [formGroup]="addCompanyForm" enctype="multipart/form-data">
+                <div *ngIf="!addCompanyForm.valid && loader" class="alert alert-danger">
+                    Please fill all fields highlighted in Red
+                </div>
+            	<div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <!-- <a (click)="editImage()">
+                                <img [src]="url" id="blah" class="text-center" width="15%" height="15%">
+                            </a> -->
+                        <div class="mhi_prf_image">
+                            <img [src]="url" id="blah" class="text-center" width="100%" height="100%">    
+                            <div>
+                                <a (click)="editImage()" style="height:100%;width: 100%;">
+                                    <img src="assets/images/cam_small.png" alt="">
+                                    Edit
+                                </a>
+                            </div> 
+                        </div>
+
+                        <div [hidden]="true">
+                            <input type="file" ng2FileSelect [uploader]="uploader" id="imageUrl" 
+                            formControlName="image" accept="image/x-png,image/gif,image/jpeg" 
+                            (change)="changeImage($event)">
+                        </div>
+                        <div [hidden]="addCompanyForm.controls.image.valid || addCompanyForm.controls.image.pristine"
+                        class="text-danger">                        </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3"><label>Author *</label></div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                        <select class="form-control border-input" formControlName="authorId"
+                         [ngClass]="{'red-border-class' : !addCompanyForm.controls.authorId.valid && loader}">
+                          <option label="Please Select Author" value="" [selected]="true">Please Select Author</option>
+                          <option *ngFor='let admin of authorsArray' value="{{admin?.id}}">
+                            {{admin?.first_name || '-'}} {{admin?.last_name || '-'}}
+                          </option>
+                        </select>
+
+                        <div [hidden]="addCompanyForm.controls.authorId.valid || addCompanyForm.controls.authorId.pristine"
+                            class="text-danger">
+                            Author is Required
+                            </div>
+
+                            <!-- <input class="form-control border-input" id="title" formControlName="author" placeholder="Enter the Company Name"
+                            [ngClass]="{'red-border-class' : !addCompanyForm.controls.author.valid && loader}">
+                        </div>
+                        <div [hidden]="addCompanyForm.controls.author.valid || addCompanyForm.controls.author.pristine"
+                        class="text-danger">
+                        </div> -->
+                    </div>
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3"><label>Name of Organisation *</label></div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input class="form-control border-input" id="title" formControlName="companyName" placeholder="Enter the Company Name"
+                            [ngClass]="{'red-border-class' : !addCompanyForm.controls.companyName.valid && loader}">
+                        </div>
+                        <div [hidden]="addCompanyForm.controls.companyName.valid || addCompanyForm.controls.companyName.pristine"
+                        class="text-danger">
+                        Organisation name is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Phone Number *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input class="form-control border-input" id="title" formControlName="phoneNumber" placeholder="Enter the Phone Number"
+                            [ngClass]="{'red-border-class': !addCompanyForm.controls.phoneNumber.valid && loader}">
+                        </div>
+                        <div [hidden]="addCompanyForm.controls.phoneNumber.valid || addCompanyForm.controls.phoneNumber.pristine"
+                        class="text-danger">
+                        Please Enter valid Phone Number
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Basic Info *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input class="form-control border-input" id="title" formControlName="basicInformation" placeholder="Enter the Basic Info"
+                            [ngClass]="{'red-border-class': !addCompanyForm.controls.basicInformation.valid && loader}">
+                        </div>
+                        <div [hidden]="addCompanyForm.controls.basicInformation.valid || addCompanyForm.controls.basicInformation.pristine"
+                        class="text-danger">
+                        Basic Information is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Account Type *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <select class="form-control border-input" formControlName="accountType"
+                            [ngClass]="{'red-border-class': !addCompanyForm.controls.accountType.valid && loader}">
+                                <option label="Please Select" value="" [selected]="true">Please Select Account Type</option>
+                                <option value="0" label="Business Use">Business Use
+                                </option>
+                                <option value="1" label="Personal Use">Personal Use
+                                </option>
+                            </select>
+                        </div>
+                        <div [hidden]="addCompanyForm.controls.accountType.valid || addCompanyForm.controls.accountType.pristine"
+                        class="text-danger">
+                        Account Type is Required  
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Address *</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <input rows="5" class="form-control border-input" formControlName="companyAddress" placeholder="Enter your Address Here."
+                            [ngClass]="{'red-border-class': !addCompanyForm.controls.companyAddress.valid && loader}">
+                        </div>
+                        <div [hidden]="addCompanyForm.controls.companyAddress.valid || addCompanyForm.controls.companyAddress.pristine"
+                        class="text-danger">
+                        Address is Required
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-fill btn-wd" 
+                    (click)="addCompany()">Save</button>
+                </div>
+            </form>
+        </div>
+        </p-tabPanel>
+   
+        <!-- Add Employee -->
+        <p-tabPanel header="Add Employees" leftIcon="fa-user" [disabled]="employeeEnable">
+        <div class="content" *ngIf="isAddEmployeeClick">
+
+            <div style="margin-bottom: 20px;">
+                <h4>Add people who are already in group</h4>
+
+                <ng-select 
+                    [allowClear]="true"
+                    [items]="items"
+                    [disabled]="disabled"
+                    (data)="refreshValue($event)"
+                    (selected)="addEmployeeSkills($event)"
+                    (removed)="removed($event)"
+                    (typed)="typed($event)"
+                    placeholder="No employee selected">
+                </ng-select>
+            </div>
+            <div *ngIf="employeeRole.length">
+                <div class="table-responsive">          
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of employeeRole;let i =index">
+                        <td class="col-md-3">
+                            <img [src]="item.userimage" id="blah" class="employeeImage">
+                        </td>
+                        <td class="col-md-6"> 
+                            <a (click)="editEmployeeSkillsById(item,i+1)">
+                            <b>{{item.name}}</b></a>
+                            <br/>{{item.title}}
+                        </td>
+                        <td class="col-md-1">
+                            <button class="form-control btn btn-primary" (click)="addEmployeeAdmin(item)">Group Admin</button>
+                        </td>
+                         <td class="col-md-1">
+                             <span *ngIf="item.isGroupAdmin==2">
+                                <img [src]="global_service.imageGreenTick" class="showGreenTick">
+                            </span>
+                        </td>
+                        <td class="col-md-1">
+                             <span (click)="deleteEmployee(item)">
+                                <img [src]="global_service.imageRedTick" class="showGreenTick">
+                            </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+           </div> 
+           <div *ngIf="employeeRole?.length==0" class="text-center">
+            No Employees Added Here.
+           </div>
+
+           <div class="text-center" *ngIf="employeeRole.length">
+              <button type="submit" class="btn btn-info btn-fill btn-wd" 
+                    (click)="addEmployees()">Save</button>
+            </div>        
+        </div>
+
+        <!-- ADD employee role -->
+        <p-dialog header="Assign Role" [(visible)]="display" modal="modal" width="500" [responsive]="true" 
+        [closable]="true">
+            <!-- <p-header><a class="pull-right" (click)='closePopUp()'><i class="fa fa-close"></i></a></p-header> -->
+           <span>{{employeeName}}</span><br/>
+           <input type="text" name="employeeTitle" [(ngModel)]="empRole" class="form-control" placeholder="Add Title">
+          <!--   <p-multiSelect [options]="employeesSkillList" [(ngModel)]="selectedSkill" class="full-width"></p-multiSelect> -->
+                <p-footer>
+                    <button type="button" pButton icon="fa-close" (click)="display=false" label="Cancel"></button>
+                    <button type="button" pButton icon="fa-check" (click)="saveEmployeeTitle()" label="Save"></button>
+                </p-footer>
+        </p-dialog>
+    </p-tabPanel>
+</p-tabView>
+ </div>
+</div>
+
+
+

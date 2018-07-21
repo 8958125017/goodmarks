@@ -1,0 +1,11 @@
+/*p{
+	width:200px;
+	height: 50px;
+	border: 1px solid;
+	padding: 2px 5px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.overflow-ellipsis{
+	text-overflow: ellipsis;
+}*/

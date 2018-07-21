@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="header">
+        <a class="ti ti-plus pull-right plus-add" (click)="gotoAddHelpRequest()"></a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">S.No</th>
+                                <th>Author</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let request of requestsList?.result; let i = index">
+                                <td class="col-md-1">{{i+indexValue}}.</td>
+                                <td class="overflow-table-text">{{request?.first_name || "-"}} 
+                                {{request?.last_name}}</td>
+                                <td class="overflow-table-text">{{request?.title || "-"}}</td>
+                                <td class="overflow-table-text">{{request?.desc || "-"}}</td>
+                                <td><a class="ti ti-pencil" (click)="gotoEditHelpRequestByID(request?.id)"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="loader_gif" *ngIf="loader">
+                        <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+                    </div>
+                    <div *ngIf="!isDataFound && !loader" class="dataCenter">Data Not Found</div>
+                </div>
+            </div>
+
+   <p-paginator class="text-center" rows="10" totalRecords="{{requestsList?.count}}" (onPageChange)="paginate($event)" *ngIf="isDataFound && requestsList?.count >10"></p-paginator>
+</div>
+
+<!-- <img [src]="global_service.basePathLoader" *ngIf="loader" class="loader_gif"> -->
+  

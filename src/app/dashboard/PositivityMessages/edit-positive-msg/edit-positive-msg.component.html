@@ -1,0 +1,101 @@
+<div class="loader_gif" *ngIf="disableMultipleSave">
+    <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+</div>
+<div class="col-lg-12 col-md-12" *ngIf="disableEdit">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Edit Positivity Messages</h4>
+        </div>
+        <div class="content">
+            <form [formGroup]="editPositivityMessageForm">
+                <div *ngIf="!editPositivityMessageForm.valid && validateForm" class="alert alert-danger">
+                Please fill all fields highlighted in Red
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Request Positivity *</label>
+                            </div>
+                            <!-- <p>{{positivitylist[8]?.desc}}jhtiofhjo</p> -->
+                            <div class="col-md-9">
+                                <select class="form-control border-input" class="form-control border-input"  formControlName="request_positivity_id"
+                                [ngClass]="{'red-border-class': !editPositivityMessageForm.controls.request_positivity_id.valid && validateForm}">
+                                    <option label="Please Select"></option>
+                                    <option *ngFor='let positivity of positivitylist' 
+                                    value="{{positivity?.id}}" 
+                                    [selected]="positivityMsgData?.request_positivity_id === positivity.id">
+                                        {{positivity?.desc}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Author *</label>
+                            </div>
+
+                            <div class="col-md-9">
+                                <select class="form-control border-input" formControlName="author_id"
+                                [ngClass]="{'red-border-class': !editPositivityMessageForm.controls.author_id.valid && validateForm}">
+                                    <option label="Please Select Author"></option>
+                                    <option *ngFor='let admin of authorDataArray' 
+                                    [selected]="positivityMsgData?.author_id === admin.id" value="{{admin?.id}}">
+                                        {{admin?.first_name || '-'}} {{admin?.last_name || '-'}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Description *</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea rows="1" class="form-control border-input" formControlName="desc" value="{{positivityMsgData?.desc}}"
+                                [ngClass]="{'red-border-class': !editPositivityMessageForm.controls.desc.valid && validateForm}">
+                                </textarea>
+                                <small *ngIf="!editPositivityMessageForm.controls.desc.valid && editPositivityMessageForm.controls.desc.dirty">
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Status *</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select class="form-control border-input" class="form-control border-input" id="status" formControlName="status"
+                                [ngClass]="{'red-border-class': !editPositivityMessageForm.controls.status.valid && validateForm}">
+                                    <option label="Select Status" value="" [selected]="true">Select Status</option>
+                                    <option label="Removed" value="0" [selected]="positivityMsgData?.status == 0">Removed</option>
+                                    <option label="Created" value="1" [selected]="positivityMsgData?.status == 1">Created</option>
+                                    <option label="Accepted" value="2" [selected]="positivityMsgData?.status == 2">Accepted</option>
+                                    <option label="Started" value="3" [selected]="positivityMsgData?.status == 3">Started</option>
+                                    <option label="Finished" value="4" [selected]="positivityMsgData?.status == 4">Finished</option>
+                                    <option label="Cancelled" value="5" 
+                                    [selected]="positivityMsgData?.status == 5">Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-fill btn-wd" (click)="updatePositivityMessage(positivityMsgData?.id)" 
+                    [disabled]="disableMultipleSave">Update</button>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,228 @@
+/* You can add global styles to this file, and also import other style files */
+a.ui-paginator-page{
+	margin: 10px;
+}
+
+.ui-inputtext {
+    background: #ffffff;
+    color: #222222;
+    transition: .2s;
+    width: 750px;
+    height: 35px;
+    /*display: none;*/
+}
+
+.ui-datepicker {
+    width: 20em !important;
+    }
+    
+.ui.datepicker .ui-inputtext {
+    background: #ffffff;
+    color: #222222;
+    transition: .2s;
+    width: 700px !important;
+    height: 35px;
+    /*display: none;*/
+}
+ .full-width {
+    width: 100% !important;
+    height: 100% !important;
+    } 
+
+.ui-multiselect {
+    width: 100% !important;
+}
+
+.ui-multiselect .ui-multiselect-panel{
+    z-index: 10 !important;
+}
+
+@media screen and (max-width: 768px) {
+
+    .navbar-header { float: none!important; }
+
+}
+
+@media screen and (max-width: 1444px){
+.ui.datepicker .ui-inputtext {
+    background: #ffffff;
+    color: #222222;
+    transition: .2s;
+    width: 1100px !important;
+    height: 35px;
+    /*display: none;*/
+}
+}
+
+@media screen and (max-width: 1024px) 
+{
+    .ui-inputtext {
+    background: #ffffff;
+    color: #222222;
+    transition: .2s;
+    width: 500px !important;
+    height: 35px;
+    /*display: none;*/
+}
+}
+
+@media screen and (max-width: 500px) {
+    .ui-inputtext {
+    background: #ffffff;
+    color: #222222;
+    transition: .2s;
+    width: 350px!important;
+    height: 35px;
+    /*display: none;*/
+}
+}
+
+@media screen and (max-width: 360px)
+{
+    .ui-inputtext {
+    background: #ffffff;
+    color: #222222;
+    transition: .2s;
+    width: 260px !important;
+    height: 35px;
+    /*display: none;*/
+}
+}
+
+
+@media screen and (max-width: 1024px) and (min-width: 700px) {
+
+
+}
+
+.auto-border-class{
+  border-color:  white !important;
+}
+.red-border-class{
+  border-color:  red !important;
+}
+
+input.ng-invalid.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+select.ng-invalid.ng-touched.ng-invalid{
+  border: 1px solid red;
+}
+
+textarea.ng-invalid.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+/*p-multiselect input.ng-dirty.ng-invalid.ng-touched{
+    border: 1px solid red;
+}*/
+
+.loader_gif{
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    float: none;
+    text-align: center;
+   /*position: fixed;top: 25%; bottom: 0; right: 0; left: 0;margin: 0 auto; z-index: 11111;height: 100px;*/
+}
+.loader-image-eight{
+    height: 60px;
+}
+.dataCenter{
+    text-align: center;
+}
+.mhi_prf_image{position: relative; float: right; width: 100px; height: 100px; margin-top: 30px; border-radius:100px; overflow: hidden;}
+.mhi_prf_image a{display: block;position: absolute; bottom: -35px; left: 0; right: 0; font-size: 12px; color: #fff; text-align: center; line-height: 32px; background-color: rgba(0,0,0,0);}
+.mhi_prf_image:hover a{bottom: 0; background-color: rgba(0,0,0,.78);color: white;}
+.mhi_prf_image a img{display:inline; margin-right: 6px;margin-top: -5px;}
+
+.ui-widget-overlay{
+    top: 0px !important;
+    left: 0px !important;
+    z-index: 0 !important;
+}
+
+.employeeImage{
+    border-radius: 60px;
+    /*width:20%; */
+    height:45px;
+    width:45px;
+}
+
+.open .form-control {
+     border-bottom-color: #adadad !important; 
+}
+.showGreenTick{
+    height: 25px;
+    cursor: pointer;
+    padding-left: 50px;
+}
+.title{
+
+    text-overflow: ellipsis !important;
+    white-space: none !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+
+.sidebar .nav p {
+    text-transform: capitalize;
+    font-size: 15px;
+    line-height: 15px !important;
+    font-weight: 400;
+}
+
+/*For Admin Name*/
+.adminNameStyle{
+    margin-top: 30px;
+    color: #00A4ED;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 200px;
+    padding-right: 8px; line-height: 16px;
+}
+
+.navbar .navbar-nav > li > a.btn-info.btn-fill, .btn-info.btn-fill {
+    color: #FFFFFF;
+
+    background-color: #3091B2 !important;
+    opacity: 1;
+    }
+
+a{
+    text-decoration: none !important;
+}
+
+.disableBackground{
+    position:fixed;
+    opacity:0.8;
+    z-index:998;
+}
+
+.image_placeholder { 
+ background-color: grey;
+ border-radius: 60px;
+    /*width:20%; */
+    height:45px;
+    width:45px;
+ }
+ .file-upload-images-container{
+    height: 60px;
+    width: 60px;
+    margin: 5px 0;
+}
+.file-upload-images {
+    height: 100%;
+}
+
+.file-browse-safari {
+     width: 0px;
+     height: 0px;
+     overflow: hidden;
+}
+.ui-multiselect-label-container {
+    height : 30px !important;
+}
+

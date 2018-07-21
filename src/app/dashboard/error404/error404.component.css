@@ -1,0 +1,15 @@
+.section-title {
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 300;
+  padding: 1em 0 0;
+}
+.explanation {
+  margin: 1em 0;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 300;
+}
+.image-center{
+	margin: 10%;
+}

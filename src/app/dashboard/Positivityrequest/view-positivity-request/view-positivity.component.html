@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="header">
+        <a class="ti ti-plus pull-right plus-add" (click)="gotoAddPositivityReq()"></a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content table-responsive table-full-width">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1">S.No</th>
+                                <th>Author</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let positivity of positivityListData?.result; let i = index">
+                                <td class="col-md-1">{{i+indexValue}}.</td>
+                                <td class="col-md-3 overflow-table-text">{{positivity?.gkarm_user?.first_name || "-"}} 
+                                {{positivity?.gkarm_user?.last_name || "-"}}</td>
+                                <td class="col-md-6 overflow-table-text">{{positivity?.desc || "-"}}</td>
+                                <td class="col-md-2">
+                                    <a class="ti ti-pencil" (click)="EditPositivityRequest(positivity?.id)"></a>
+                                   <!--  <b>/</b>
+                                    <a class="ti ti-trash" (click)="deletePositivityById(positivity?.id)"></a> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="loader_gif" *ngIf="loader">
+                        <img [src]="global_service.basePathLoader"  class="loader-image-eight">
+                    </div>
+                    <div *ngIf="!isDataFound && !loader" class="dataCenter">Data Not Found</div>
+                </div>
+            </div>
+
+   <p-paginator class="text-center" rows="10" totalRecords="{{positivityListData?.count}}" (onPageChange)="paginate($event)" *ngIf="isDataFound && positivityListData?.count >10"></p-paginator>
+</div>
+<!-- <img [src]="global_service.basePathLoader" *ngIf="loader" class="loader_gif">   -->
